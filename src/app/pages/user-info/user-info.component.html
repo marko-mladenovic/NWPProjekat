@@ -1,0 +1,75 @@
+<default-layout>
+    <div class="container">
+        <div class="col o-1">
+            <form (ngSubmit)="sendData(userForm)" #userForm="ngForm" class="example-form paper">
+                <div ngModelGroup="userData">
+                    <p class="mat-caption">Nisu sve boje uvek dostupne. Nakon porudžbine ćete biti obavešteni da li su boje koje ste Vi izabrali dostupne ili ne.<br/><br/>
+                        U kutiji može biti od 21 do 65 fotografija zavisno od izabranih elemenata. <br/>
+                        Morate imati fotografije za sve elemente koje izaberete. <br/>
+                        Način slanja fotografija će biti dogovoren nakon porudžbine.</p>
+                    <table class="example-full-width" cellspacing="0">
+                        <tr>
+                            <td style="padding-right: .5rem">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>Ime</mat-label>
+                                    <input matInput ngModel #userIme="ngModel" name="ime" required>
+                                </mat-form-field>
+                            </td>
+                            <td style="padding-left: .5rem">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>Prezime</mat-label>
+                                    <input matInput ngModel #userPrezime="ngModel" name="prezime" required>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input type="email" matInput ngModel #userEmail="ngModel" name="email" required
+                        pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
+                        <mat-error *ngIf="userEmail.invalid && (userEmail.dirty || errMessage)">
+                            Molimo unesite ispravnu email adresu.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Broj telefona</mat-label>
+                        <input matInput ngModel #userBrTelefona="ngModel" name="brTelefona" required
+                        pattern="^\s*((\+\(*381\)*[-. /]*(6\d{1}))|(\(*06[0-9]{1}\)*))[-. /]*(\d{3})[-. /]*(\d{3,4})\s*$">
+                        <mat-error *ngIf="userBrTelefona.invalid && (userBrTelefona.dirty || errMessage)">
+                            Molimo unesite ispravan broj telefona.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-checkbox #checkbox (change)="toggleButtonState()">Potvrđujem da su svi podaci tačni</mat-checkbox><br>
+                    <button mat-button type="submit" [disabled]="!disabled">Naruči</button>
+                    <mat-error class="formError">
+                        {{errMessage}}
+                    </mat-error>
+                </div>
+            </form>
+        </div>
+        <div class="col o-2">
+            <div class="paper info">
+                <div class="color"><p>Primarna Boja: </p><span>{{color1}}</span></div>
+                <div class="color"><p>Sekundarna Boja: </p><span>{{color2}}</span></div>
+                <div class="color"><p>Srednji element: </p><span>{{middleElement?.name}}</span></div>
+
+                <div class="grid">
+                    <div class="layer-card" *ngFor="let layer of layers; index as i">
+                        <div class="title">Sloj {{i + 1}}</div>
+                        <div class="content">
+                            <div class="item" *ngFor="let element of layer.elements">
+                                <div class="position">{{element.position}}</div>
+                                <span class="name">{{element.element.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="price">
+                    <p>Ukupna cena kutije: </p>
+                    <p>{{boxPrice}} RSD</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</default-layout>

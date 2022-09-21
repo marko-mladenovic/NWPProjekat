@@ -1,0 +1,107 @@
+<default-layout>
+  <div class="container">
+    <div class="col">
+      <div class="col-box">
+        <div class="filter">
+          <mat-form-field appearance="outline">
+            <mat-label>Odaberite primarnu boju</mat-label>
+            <mat-select [(value)]="color1">
+              <mat-option *ngFor="let color of colors" value={{color}}>{{color}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Odaberite sekundarnu boju</mat-label>
+            <mat-select [(value)]="color2">
+              <mat-option *ngFor="let color of colors" value={{color}}>{{color}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- <p class="mat-caption" *ngIf="color1 && color2">NAPOMENA: Nisu sve boje uvek dostupne. <br/>
+            Naknadno ćete biti obavešteni da li su boje koje ste Vi izabrali dostupne ili ne.</p> -->
+
+          <mat-divider></mat-divider>
+
+          <p class="mat-caption">
+            Slojevi se broje od spolja. Kada se kutija otvori, sloj sa najvećim rednim brojem je onaj koji će biti odozgo.
+          </p>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Odaberite broj slojeva</mat-label>
+            <mat-select [(value)]="selected" (valueChange)="makeLayers()">
+              <mat-option value="1">1 Sloj</mat-option>
+              <mat-option value="2">2 Sloja</mat-option>
+              <mat-option value="3">3 Sloja</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-selection-list style="padding-bottom: 8px;" #elements [multiple]="false" (selectionChange)="middlePositionSelected()">
+            <mat-list-option value="middle">
+                <div class="item"><span>Sredina:</span> <span *ngIf="middleElement?.name" class="selected">{{middleElement.name}}</span></div>
+            </mat-list-option>
+          </mat-selection-list>
+
+          <mat-accordion>
+            <mat-expansion-panel *ngFor="let layer of layers; index as i" (expandedChange)="accordionChanged()">
+              <mat-expansion-panel-header>
+                <mat-panel-title>Sloj {{i + 1}}</mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <mat-selection-list #elements [multiple]="false" (selectionChange)="elementPositionSelected(i, elements.selectedOptions.selected[0].value)">
+                <mat-list-option *ngFor="let element of layer.elements" [value]="element.position">
+                    <div class="item"><span>{{element.position}}:</span> <span *ngIf="element?.element?.name" class="selected">{{element.element.name}}</span></div>
+                </mat-list-option>
+              </mat-selection-list>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <p class="mat-h3"><span>Ukupna cena:</span><span>{{currentPrice}} RSD</span></p>
+
+          <button class="next-button" mat-button [disabled]="!color1 || !color2 || !layersCheck" (click)="continue()">Dalje</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col f-2">
+        <div class="card-grid" *ngIf="!currentLayer && !currentPosition && !middleCurrent">
+          <div class="image__box">
+            <img src="../../../assets/box.svg" alt="Select">
+            <p class="mat-subheading-2">Molimo odaberite opciju sa leve strane</p>
+          </div>
+        </div>
+        <div class="card-grid" *ngIf="currentLayer && currentPosition">
+          <div class="grid-col" *ngFor="let boxElement of boxElements; index as i">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-title>{{boxElement.name}}</mat-card-title>
+                <mat-card-subtitle>{{boxElement.priceRSD}} RSD</mat-card-subtitle>
+              </mat-card-header>
+              <div>
+              <img src="{{boxElement.imageUrl}}" alt="Element Picture">
+              <mat-card-actions>
+                <button mat-button (click)="elementSelected(i)">Select</button>
+              </mat-card-actions>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+
+        <div class="card-grid" *ngIf="middleCurrent">
+          <div class="grid-col" *ngFor="let middleElement of middleElements; index as i">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-title>{{middleElement.name}}</mat-card-title>
+                <mat-card-subtitle>{{middleElement.priceRSD}} RSD</mat-card-subtitle>
+              </mat-card-header>
+              <div>
+              <img src="{{middleElement.imageUrl}}" alt="Element Picture">
+              <mat-card-actions>
+                <button mat-button (click)="middleSelected(i)">Select</button>
+              </mat-card-actions>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+    </div>
+  </div>
+</default-layout>

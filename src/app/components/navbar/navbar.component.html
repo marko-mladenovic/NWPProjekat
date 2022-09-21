@@ -1,0 +1,10 @@
+<mat-toolbar class="mat-elevation-z7">
+    <span>Kutije Iznenađenja</span>
+
+    <mat-icon (click)="openNav()" class="burger">menu</mat-icon>
+    <nav [ngClass]="open ? 'active' : ''">
+        <a mat-button routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">Početna <mat-icon>home</mat-icon></a>
+        <a mat-button routerLink="/gallery" routerLinkActive="active" ariaCurrentWhenActive="page">Galerija</a>
+        <a mat-button routerLink="/builder" routerLinkActive="active" ariaCurrentWhenActive="page">Izgradi svoju kutiju</a>
+    </nav>
+</mat-toolbar>

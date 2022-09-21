@@ -1,0 +1,43 @@
+mat-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, rgba(26,35,126,1) 0%, rgba(149,117,205,1) 100%);
+    color: white;
+    position: fixed;
+    z-index: 999;
+    a .mat-icon {
+        margin-bottom: 5px;
+    }
+    .burger {
+        display: none;
+        cursor: pointer;
+    }
+
+    @media screen and (max-width: 991px) {
+        .burger {
+            display: inline-flex;
+        }
+        nav {
+            position: absolute;
+            top: 64px;
+            right: 0;
+            width: 100%;
+            height: calc(100vh - 64px);
+            background-color: #fafafa;
+            color: #131313;
+            transform: translateX(100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            transition: transform .33s;
+            
+            .mat-button{ font-size: 1.5rem;}
+            &.active {
+                transform: translateX(0);
+            }
+        }
+    }
+}

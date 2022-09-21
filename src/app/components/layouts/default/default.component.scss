@@ -1,0 +1,19 @@
+main.default-layout {
+    padding: 80px 2rem 2rem 2rem;
+    flex: 1;
+    min-height: calc(100vh - 39px);
+    @media screen and (max-width: 991px) {
+        padding: 80px .5rem 2rem .5rem;
+    }
+}
+main {
+    background: #fafafa;
+}
+footer {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background: #f1f1f1;
+}
