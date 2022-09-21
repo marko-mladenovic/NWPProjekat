@@ -12,7 +12,6 @@ export class UserInfoGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     const condition = this.userInfoDataService.boxDataCheck();
-    console.log("guard activated: " + condition);
 
     if(!condition)
       this.router.navigate(['builder']);
